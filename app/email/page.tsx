@@ -148,7 +148,7 @@ export default function EmailManagementPage() {
       const [templatesData, campaignsData, leadsResponse] = await Promise.all([
         apiClient.getEmailTemplates(),
         apiClient.getEmailCampaigns(),
-        apiClient.getLeads({ limit: 100 })
+        apiClient.getLeads({ limit: 10000 })
       ])
 
       if (templatesData.status === 'success') {
