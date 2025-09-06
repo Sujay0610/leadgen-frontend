@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
 import AuthGuard from '@/components/AuthGuard'
 import { Eye, EyeOff, Mail, Lock, User, UserPlus, Loader2 } from 'lucide-react'
@@ -18,6 +19,7 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const { signUp } = useAuth()
+  const router = useRouter()
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -62,6 +64,11 @@ export default function SignUpPage() {
     if (error) {
       console.error('Signup error:', error)
       setErrors({ general: error.message })
+    } else {
+      // Redirect to login page after successful signup
+      setTimeout(() => {
+        router.push('/login')
+      }, 2000) // Wait 2 seconds to show the confirmation message
     }
     
     setIsLoading(false)
